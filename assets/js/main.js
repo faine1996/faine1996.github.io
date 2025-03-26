@@ -31,18 +31,19 @@
    * Mobile nav toggle
    */
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-const header = document.querySelector('#header');
-
-if (mobileNavToggleBtn && header) {
-  function mobileNavToggle() {
-    document.body.classList.toggle('mobile-nav-active');
-    mobileNavToggleBtn.classList.toggle('bi-list');
-    mobileNavToggleBtn.classList.toggle('bi-x');
-    header.classList.toggle('visible'); // Ensure header stays visible
+  const header = document.querySelector('#header');
+  
+  if (mobileNavToggleBtn && header) {
+    function mobileNavToggle() {
+      document.body.classList.toggle('mobile-nav-active');
+      mobileNavToggleBtn.classList.toggle('bi-list');
+      mobileNavToggleBtn.classList.toggle('bi-x');
+      header.classList.toggle('visible'); // Ensure header stays visible
+    }
+  
+    mobileNavToggleBtn.addEventListener('click', mobileNavToggle);
   }
-
-  mobileNavToggleBtn.addEventListener('click', mobileNavToggle);
-}
+  
 
 
   /**
