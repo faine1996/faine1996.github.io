@@ -197,16 +197,29 @@ h6 {
 }
 
 /* Global Header - Ensures consistency across all pages */
-.header {
-  padding-top: 80px; /* Adjust based on header height */
+#header {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0); /* Transparent by default */
-  padding: 15px 0;
-  transition: background 0.3s ease-in-out;
-  z-index: 997;
+  background: rgba(0, 0, 0, 0.9); /* Dark background for visibility */
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  transition: top 0.3s ease-in-out;
 }
+
+body.scrolled #header {
+  background: rgba(0, 0, 0, 1);
+}
+
+/* Ensure visibility when the mobile menu is open */
+body.mobile-nav-active #header {
+  display: flex;
+}
+
 
 /* Make the header solid only when scrolling */
 .about-page .header, 
@@ -238,7 +251,7 @@ h6 {
   margin: 0 15px;
 }
 
-/* Default Navigation Link */
+/* Default link style */
 .navmenu ul li a {
   text-decoration: none;
   font-size: 16px;
@@ -249,14 +262,24 @@ h6 {
   transition: color 0.3s ease-in-out;
 }
 
-/* Hover Effect */
+/* Hover effect */
 .navmenu ul li a:hover {
   color: #18d26e; /* Green on hover */
 }
 
-/* Active Page Highlight */
+/* Active page style */
+.navmenu ul li a.active,
+.navmenu ul li a[href*="about.html"].active,
+.navmenu ul li a[href*="resume.html"].active,
+.navmenu ul li a[href*="portfolio.html"].active,
+.navmenu ul li a[href*="contact.html"].active {
+  color: #18d26e; /* Green for the current page */
+}
+
+/* Active and Hover Links */
+.navmenu ul li a:hover,
 .navmenu ul li a.active {
-  color: #18d26e !important; /* Ensure active page is green */
+  color: #18d26e; /* Green hover effect */
 }
 
 /* Ensure Underline Effect Matches */
@@ -281,19 +304,40 @@ h6 {
 # Responsive Navigation (Mobile-Friendly)
 --------------------------------------------------------------*/
 @media (max-width: 768px) {
-  .navmenu {
-    flex-direction: column;
-  }
-  
-  .navmenu ul {
-    flex-direction: column;
-    text-align: center;
+  .mobile-nav-toggle {
+    display: block;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
   }
 
-  .navmenu ul li {
-    margin: 10px 0;
+  .mobile-nav-active .bi-list {
+    display: none;
+  }
+
+  .mobile-nav-active .bi-x {
+    display: inline;
+  }
+
+  .navmenu {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    text-align: center;
+    z-index: 9999;
+  }
+
+  .mobile-nav-active .navmenu {
+    display: block;
   }
 }
+
 
 
 /* Mobile Navigation */
