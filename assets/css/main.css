@@ -309,36 +309,59 @@ body.mobile-nav-active #header {
 /* Mobile Navigation */
 @media (max-width: 768px) {
   .mobile-nav-toggle {
-    display: block;
-    font-size: 24px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    color: white;
-    margin-right: 15px;
+      display: block;
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+      z-index: 10000;
   }
 
-  .mobile-nav-active .bi-list {
-    display: none;
+  /* Hide default nav */
+  .mobile-nav-active .mobile-nav-toggle.bi-list {
+      display: none;
   }
 
-  .mobile-nav-active .bi-x {
-    display: inline;
+  /* Show close (X) icon */
+  .mobile-nav-active .mobile-nav-toggle.bi-x {
+      display: inline;
   }
-
-  .navmenu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
 }
 
-/* Center menu items */
-.navmenu ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+
+/* Default: Hide menu on mobile */
+@media (max-width: 768px) {
+  .navmenu {
+      display: none; /* Hide menu by default */
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      text-align: center;
+      z-index: 9999;
+  }
+
+  /* Show when active */
+  body.mobile-nav-active .navmenu {
+      display: block;
+  }
+
+  /* Make links stack */
+  .navmenu ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+  }
+
+  .navmenu ul li {
+      margin: 10px 0;
+  }
 }
 
 /* Adjust menu items spacing */

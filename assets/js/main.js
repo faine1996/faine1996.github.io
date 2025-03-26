@@ -257,13 +257,26 @@
    * Mobile nav toggle
    */
   const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
-  if (mobileNavToggleBtn) {
-    function mobileNavToogle() {
-      document.querySelector('body').classList.toggle('mobile-nav-active');
-      mobileNavToggleBtn.classList.toggle('bi-list');
-      mobileNavToggleBtn.classList.toggle('bi-x');
-    }
-    mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+  const header = document.querySelector('#header');
+  const navMenu = document.querySelector('.navmenu');
+  
+  if (mobileNavToggleBtn && navMenu) {
+      function mobileNavToggle() {
+          document.body.classList.toggle('mobile-nav-active');
+          mobileNavToggleBtn.classList.toggle('bi-list');
+          mobileNavToggleBtn.classList.toggle('bi-x');
+      }
+  
+      mobileNavToggleBtn.addEventListener('click', mobileNavToggle);
+  
+      // Close menu when clicking a link
+      document.querySelectorAll('.navmenu a').forEach(link => {
+          link.addEventListener('click', () => {
+              if (document.body.classList.contains('mobile-nav-active')) {
+                  mobileNavToggle();
+              }
+          });
+      });
   }
 
   /**
