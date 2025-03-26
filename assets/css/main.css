@@ -56,7 +56,64 @@
 :root {
   scroll-behavior: smooth;
 }
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url('/assets/img/profile.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
 
+
+/* Dark overlay to improve text visibility */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Ensure hero text and icons are on top of the overlay */
+.hero h2, .hero p, .hero .social-links {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header text */
+.hero h2 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.hero p {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+/* Social icons */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-links a {
+  font-size: 2rem;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.social-links a:hover {
+  color: #18d26e; /* Green hover effect */
+}
 /*--------------------------------------------------------------
 # General Styling & Shared Classes
 --------------------------------------------------------------*/
@@ -139,178 +196,105 @@ h6 {
   }
 }
 
-/*--------------------------------------------------------------
-# Global Header
---------------------------------------------------------------*/
+/* Global Header - Ensures consistency across all pages */
 .header {
-  --background-color: rgba(0, 0, 0, 0);
-  color: var(--default-color);
-  background-color: var(--background-color);
+  padding-top: 80px; /* Adjust based on header height */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0); /* Transparent by default */
   padding: 15px 0;
-  transition: all 0.5s;
+  transition: background 0.3s ease-in-out;
   z-index: 997;
 }
 
-.header .logo {
-  line-height: 1;
+/* Make the header solid only when scrolling */
+.about-page .header, 
+.resume-page .header, 
+.portfolio-page .header, 
+.contact-page .header {
+  background: rgba(0, 0, 0, 0); /* Transparent by default */
 }
 
-.header .logo img {
-  max-height: 32px;
-  margin-right: 8px;
+/* Ensure the background is applied properly */
+.about-page main, 
+.resume-page main, 
+.portfolio-page main, 
+.contact-page main {
+  background: black; /* Ensures a black background behind content */
 }
 
-.header .logo h1 {
-  font-size: 30px;
+/* Navigation Links */
+.navmenu ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
-  font-weight: 700;
-  color: var(--heading-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.scrolled .header {
-  box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+.navmenu ul li {
+  margin: 0 15px;
 }
 
-/* Global Header on Scroll
-------------------------------*/
-.scrolled .header {
-  --background-color: rgba(0, 0, 0, 0.8);
+/* Default Navigation Link */
+.navmenu ul li a {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white; /* Default color */
+  padding: 10px 15px;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.navmenu ul li a:hover {
+  color: #18d26e; /* Green on hover */
+}
+
+/* Active Page Highlight */
+.navmenu ul li a.active {
+  color: #18d26e !important; /* Ensure active page is green */
+}
+
+/* Ensure Underline Effect Matches */
+.navmenu ul li a::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #18d26e;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.navmenu ul li a:hover::after {
+  transform: scaleX(1);
 }
 
 /*--------------------------------------------------------------
-# Navigation Menu
+# Responsive Navigation (Mobile-Friendly)
 --------------------------------------------------------------*/
-/* Desktop Navigation */
-@media (min-width: 1200px) {
+@media (max-width: 768px) {
   .navmenu {
-    padding: 0;
+    flex-direction: column;
   }
-
+  
   .navmenu ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    list-style: none;
-    align-items: center;
+    flex-direction: column;
+    text-align: center;
   }
 
-  .navmenu li {
-    position: relative;
-  }
-
-  .navmenu>ul>li {
-    white-space: nowrap;
-    padding: 15px 14px;
-  }
-
-  .navmenu>ul>li:last-child {
-    padding-right: 0;
-  }
-
-  .navmenu a,
-  .navmenu a:focus {
-    color: var(--nav-color);
-    font-size: 15px;
-    padding: 0 2px;
-    font-family: var(--nav-font);
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    white-space: nowrap;
-    transition: 0.3s;
-    position: relative;
-  }
-
-  .navmenu a i,
-  .navmenu a:focus i {
-    font-size: 12px;
-    line-height: 0;
-    margin-left: 5px;
-    transition: 0.3s;
-  }
-
-  .navmenu>ul>li>a:before {
-    content: "";
-    position: absolute;
-    height: 2px;
-    bottom: -6px;
-    left: 0;
-    background-color: var(--nav-hover-color);
-    visibility: hidden;
-    width: 0px;
-    transition: all 0.3s ease-in-out 0s;
-  }
-
-  .navmenu a:hover:before,
-  .navmenu li:hover>a:before,
-  .navmenu .active:before {
-    visibility: visible;
-    width: 25px;
-  }
-
-  .navmenu li:hover>a,
-  .navmenu .active,
-  .navmenu .active:focus {
-    color: var(--nav-hover-color);
-  }
-
-  .navmenu .dropdown ul {
-    margin: 0;
-    padding: 10px 0;
-    background: var(--nav-dropdown-background-color);
-    display: block;
-    position: absolute;
-    visibility: hidden;
-    left: 14px;
-    top: 130%;
-    opacity: 0;
-    transition: 0.3s;
-    border-radius: 4px;
-    z-index: 99;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  .navmenu .dropdown ul li {
-    min-width: 200px;
-  }
-
-  .navmenu .dropdown ul a {
-    padding: 10px 20px;
-    font-size: 15px;
-    text-transform: none;
-    color: var(--nav-dropdown-color);
-  }
-
-  .navmenu .dropdown ul a i {
-    font-size: 12px;
-  }
-
-  .navmenu .dropdown ul a:hover,
-  .navmenu .dropdown ul .active:hover,
-  .navmenu .dropdown ul li:hover>a {
-    color: var(--nav-dropdown-hover-color);
-  }
-
-  .navmenu .dropdown:hover>ul {
-    opacity: 1;
-    top: 100%;
-    visibility: visible;
-  }
-
-  .navmenu .dropdown .dropdown ul {
-    top: 0;
-    left: -90%;
-    visibility: hidden;
-  }
-
-  .navmenu .dropdown .dropdown:hover>ul {
-    opacity: 1;
-    top: 0;
-    left: -100%;
-    visibility: visible;
+  .navmenu ul li {
+    margin: 10px 0;
   }
 }
+
 
 /* Mobile Navigation */
 @media (max-width: 1199px) {
@@ -835,38 +819,12 @@ section,
 /*--------------------------------------------------------------
 # Skills Section
 --------------------------------------------------------------*/
-.skills .progress {
-  height: 60px;
-  display: block;
-  background: none;
-  border-radius: 0;
-}
-
-.skills .progress .skill {
-  color: var(--heading-color);
-  padding: 0;
-  margin: 0 0 6px 0;
+.skill-text {
+  color: var(--accent-color); /* Green color from bars */
+  font-size: 20px;
+  font-weight: bold;
   text-transform: uppercase;
-  display: block;
-  font-weight: 600;
-  font-family: var(--heading-font);
-}
-
-.skills .progress .skill .val {
-  float: right;
-  font-style: normal;
-}
-
-.skills .progress-bar-wrap {
-  background: color-mix(in srgb, var(--default-color), transparent 90%);
-  height: 10px;
-}
-
-.skills .progress-bar {
-  width: 1px;
-  height: 10px;
-  transition: 0.9s;
-  background-color: var(--accent-color);
+  margin-bottom: 10px;
 }
 
 /*--------------------------------------------------------------
@@ -1474,3 +1432,91 @@ section,
 .contact .php-email-form button[type=submit]:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
+
+.tim/*--------------------------------------------------------------
+# Timeline Section - Updated with Skills Theme
+--------------------------------------------------------------*/
+.timeline {
+  list-style: none;
+  padding: 0;
+  position: relative;
+  text-align: center; /* Centers all content */
+  margin: 50px auto; /* Centers the whole timeline */
+  max-width: 600px; /* Ensures good width */
+}
+
+.timeline:before {
+  display: none;
+}
+
+.timeline > li {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  list-style-type: none;
+}
+
+.timeline-panel {
+  background: transparent;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  max-width: 600px; /* Keeps it neat */
+}
+
+/* Apply Skill-Style Text */
+.timeline-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #18d26e; /* Green accent from skills section */
+  margin-bottom: 5px;
+}
+
+.company {
+  display: block;
+  font-size: 14px;
+  color: #bfbfbf;
+  margin-bottom: 10px;
+}
+
+.timeline-item p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .timeline {
+    max-width: 90%;
+  }
+}
+
+/*--------------------------------------------------------------
+# Section Title Styling (Matches Skills)
+--------------------------------------------------------------*/
+.section-title {
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.section-title h2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.section-line {
+  width: 50px;
+  height: 3px;
+  background: #18d26e; /* Matching skills section */
+  margin: 0 auto;
+}
+
+
