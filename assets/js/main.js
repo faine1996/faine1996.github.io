@@ -463,7 +463,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let confirmDownload = confirm("This will download my CV. Do you want to continue?");
       if (confirmDownload) {
-        window.location.href = "assets/files/Faine_Angel_Resume.pdf"; // Replace with actual CV path
+        window.location.href = "Faine_Angel_Resume.pdf"; // Replace with actual CV path
       }
       // No removal of resume link
     });
