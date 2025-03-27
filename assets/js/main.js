@@ -485,13 +485,55 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Highlight the current nav link
   let fullUrl = window.location.href;
   let currentPage = fullUrl.substring(fullUrl.lastIndexOf("/") + 1);
 
-  // If empty or root, default to index.html
   if (!currentPage || currentPage === "/" || currentPage.includes("localhost:3000")) {
     currentPage = "index.html";
   }
+
+  let navLinks = document.querySelectorAll(".navmenu ul li a");
+
+  navLinks.forEach(link => {
+    let linkHref = link.getAttribute("href");
+    console.log(`Checking: ${linkHref} === ${currentPage}`);
+    if (linkHref.endsWith(currentPage)) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+
+  // Handle mobile nav toggle
+  const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
+  const body = document.body;
+
+  if (mobileNavToggleBtn) {
+    mobileNavToggleBtn.addEventListener('click', function () {
+      body.classList.toggle('mobile-nav-active');
+      if (body.classList.contains('mobile-nav-active')) {
+        mobileNavToggleBtn.classList.remove('bi-list');
+        mobileNavToggleBtn.classList.add('bi-x');
+      } else {
+        mobileNavToggleBtn.classList.remove('bi-x');
+        mobileNavToggleBtn.classList.add('bi-list');
+      }
+    });
+
+    // Close menu when a nav link is clicked
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (body.classList.contains('mobile-nav-active')) {
+          body.classList.remove('mobile-nav-active');
+          mobileNavToggleBtn.classList.remove('bi-x');
+          mobileNavToggleBtn.classList.add('bi-list');
+        }
+      });
+    });
+  }
+});
+
 
   let navLinks = document.querySelectorAll(".navmenu ul li a");
 
@@ -509,11 +551,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-
-})();
-
-
-
 
 })();
 
