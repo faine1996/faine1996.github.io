@@ -171,35 +171,46 @@
     }
   });
 
-  // ✅ Contact Form Handling
-const form = document.getElementById("contact-form");
-const status = document.getElementById("form-status");
-
-if (form) {
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const data = new FormData(form);
-    const action = form.action;
-
-    try {
-      const response = await fetch(action, {
-        method: "POST",
-        body: data,
-        headers: {
-          'Accept': 'application/json'
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  const spinner = document.getElementById("form-spinner");
+  
+  if (form) {
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+  
+      // Show the spinner
+      if (spinner) spinner.style.display = "block";
+      // Clear any old messages
+      if (status) status.innerHTML = "";
+  
+      const data = new FormData(form);
+      const action = form.action;
+  
+      try {
+        const response = await fetch(action, {
+          method: "POST",
+          body: data,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+  
+        // Hide the spinner
+        if (spinner) spinner.style.display = "none";
+  
+        if (response.ok) {
+          status.innerHTML = "<p class='text-success'>Thanks for your message!</p>";
+          form.reset();
+        } else {
+          status.innerHTML = "<p class='text-danger'>Oops! Something went wrong.</p>";
         }
-      });
-
-      if (response.ok) {
-        status.innerHTML = "<p class='text-success'>Thanks for your message!</p>";
-        form.reset();
-      } else {
-        status.innerHTML = "<p class='text-danger'>Oops! Something went wrong.</p>";
+      } catch (error) {
+        if (spinner) spinner.style.display = "none";
+        status.innerHTML = "<p class='text-danger'>There was an error submitting the form.</p>";
       }
-    } catch (error) {
-      status.innerHTML = "<p class='text-danger'>There was an error submitting the form.</p>";
-    }
-  });
-}
+    });
+  }
+  
+
 })();
