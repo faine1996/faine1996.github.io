@@ -170,4 +170,36 @@
       });
     }
   });
+
+  // ✅ Contact Form Handling
+const form = document.getElementById("contact-form");
+const status = document.getElementById("form-status");
+
+if (form) {
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const data = new FormData(form);
+    const action = form.action;
+
+    try {
+      const response = await fetch(action, {
+        method: "POST",
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        status.innerHTML = "<p class='text-success'>Thanks for your message!</p>";
+        form.reset();
+      } else {
+        status.innerHTML = "<p class='text-danger'>Oops! Something went wrong.</p>";
+      }
+    } catch (error) {
+      status.innerHTML = "<p class='text-danger'>There was an error submitting the form.</p>";
+    }
+  });
+}
 })();

@@ -55,7 +55,7 @@
   
       <div class="row">
         <div class="col-lg-12">
-          <form action="mailto:your-email@example.com" method="post" enctype="text/plain" class="php-email-form">
+          <form id="contact-form" action="https://formspree.io/f/mkgjqoow" method="POST" class="php-email-form">
             <div class="form-group">
               <label for="name">Your Name</label>
               <input type="text" name="name" class="form-control" id="name" required>
@@ -80,6 +80,7 @@
               <button type="submit">Send Message</button>
             </div>
           </form>
+          <div id="form-status" class="text-center mt-2"></div>
         </div>
       </div>
     </div>
